@@ -14,3 +14,7 @@ there is a new function checkLogin that is not working properly
 debugging shows the variable are being wiped before being checked
 might have to store them in another var <p1>
 
+
+<h5> 12/3/23 (noon) <h5>
+<p1> some minor changes yet password issue persists , maybe scope related? <p1>
+
