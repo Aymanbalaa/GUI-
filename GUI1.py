@@ -3,11 +3,7 @@ from tkinter import ttk
 from datetime import datetime
 from typing import Counter
 
-
-
-
-
-
+global passwordstr
 
 #function checks if username matches password according to the textfile where all logins are stored 
 def check_login(username, password):
@@ -15,11 +11,12 @@ def check_login(username, password):
      for line in open("login.txt","r").readlines(): # Read the lines
         login_info = line.split() # Split on the space, and store the results in a list of two strings
         if username == login_info[0] and password == login_info[1]:
-                    print("bravo")
-                    return True
+            print("bravo")
+            return True
         
-        print("ayre")
-        return False
+        else :
+            print("ayre")
+            return False
 
 
 
@@ -36,8 +33,6 @@ def name():
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 
-    if (user_name.get() == ""):
-        user_name.set("Guest")
 
     str = user_name.get()+" has logged IN  at "+dt_string
     with open('LOGS.txt', 'a') as txt:
@@ -66,6 +61,7 @@ def password():
     #menu.geometry("500x500")
 
     password = tk.StringVar()
+    passwordstr = password.get()
 
     pass_main = ttk.Frame(Pass, padding=(20, 10, 20, 0))
     pass_main.grid()
@@ -90,20 +86,20 @@ def password():
     buttons.columnconfigure(0, weight=1)
     buttons.columnconfigure(1, weight=1)
 
+  
 
     #LOGIN BUTTON
-    LOGIN_button = ttk.Button( buttons ,  text = "Log In" , command = lambda:[print(password.get()),check_login(user_name.get(), password.get()) ])
+    LOGIN_button = ttk.Button( buttons ,  text = "Log In" , command = lambda:[print(passwordstr) ])
     LOGIN_button.grid(row=0, column=0, sticky="EW")
+
+
 
     #EXIT BUTTON
     destroy_button = ttk.Button( buttons ,  text = "Exit" , command = lambda:[Pass.destroy() , exit()])   #uses lambda to combine two functions in one command
     destroy_button.grid(row=0, column=1, sticky="EW")
 
+    Pass.mainloop()
     
-
-
-
-
 
 menu = tk.Tk()
 menu.title("Balaa INC")
@@ -117,7 +113,6 @@ main.grid()
 
 menu.columnconfigure(0, weight=1)
 menu.rowconfigure(1, weight=1)
-
 
 
 #LABEL-TEXT- "NAME"
@@ -137,11 +132,11 @@ buttons.columnconfigure(1, weight=1)
 
 
 #ENTER BUTTON
-Enter_button = ttk.Button( buttons ,  text = "Enter" , command = lambda:[ name, password()]) 
+Enter_button = ttk.Button( buttons ,  text = "Enter" , command = lambda:[print(user_name.get()),name(), password(),menu.destroy()] )
 Enter_button.grid(row=0, column=0, sticky="EW")
 
 #EXIT BUTTON
-destroy_button = ttk.Button( buttons ,  text = "Exit" , command = lambda:[print(user_name.get()),menu.destroy() , exit()])   #uses lambda to combine two functions in one command
+destroy_button = ttk.Button( buttons ,  text = "Exit" , command = lambda:[menu.destroy() , exit()])   #uses lambda to combine two functions in one command
 destroy_button.grid(row=0, column=1, sticky="EW")
 
 Contact_button = ttk.Button( menu ,  text = "Contact" , command = lambda:[menu.destroy() , Contact()])   #uses lambda to combine two functions in one command
